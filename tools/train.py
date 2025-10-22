@@ -1,3 +1,9 @@
+"""
+Training script for EGA-Ploc protein subcellular localization / EGA-Ploc蛋白质亚细胞定位的训练脚本
+This module handles distributed training of EGA-Ploc models for multi-label classification.
+此模块处理EGA-Ploc模型的多标签分类分布式训练。
+"""
+
 import os
 import sys
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

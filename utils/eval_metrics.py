@@ -1,3 +1,9 @@
+"""
+Evaluation metrics for EGA-Ploc protein subcellular localization / EGA-Ploc蛋白质亚细胞定位的评估指标
+This module contains comprehensive evaluation metrics for multi-label classification tasks.
+此模块包含多标签分类任务的全面评估指标。
+"""
+
 import os
 
 import matplotlib.pyplot as plt

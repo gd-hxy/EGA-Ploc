@@ -1,3 +1,9 @@
+"""
+Classification module for EGA-Ploc protein subcellular localization / EGA-Ploc蛋白质亚细胞定位的分类模块
+This module contains classification heads and model variants for multi-label protein localization.
+此模块包含多标签蛋白质定位的分类头和模型变体。
+"""
+
 import math
 import torch
 import torch.nn as nn

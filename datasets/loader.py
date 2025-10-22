@@ -1,4 +1,8 @@
-"""Data loader."""
+"""
+Data loader for EGA-Ploc protein subcellular localization / EGA-Ploc蛋白质亚细胞定位的数据加载器
+This module handles dataset construction and distributed data loading for training and evaluation.
+此模块处理训练和评估的数据集构建和分布式数据加载。
+"""
 
 import numpy as np
 import random
@@ -69,5 +73,3 @@ def shuffle_dataset(loader, cur_epoch):
     if isinstance(sampler, DistributedSampler):
         # DistributedSampler shuffles data based on epoch
         sampler.set_epoch(cur_epoch)
-
-
