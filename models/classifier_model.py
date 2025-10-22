@@ -1,3 +1,9 @@
+"""
+Classifier model factory for EGA-Ploc / EGA-Ploc的分类器模型工厂
+This module provides a factory function to create different classifier models for protein subcellular localization.
+此模块提供工厂函数来创建用于蛋白质亚细胞定位的不同分类器模型。
+"""
+
 import timm
 from torchsummary import summary
 from models.ETPLoc.cls_model_zoo import *

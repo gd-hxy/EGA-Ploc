@@ -1,3 +1,9 @@
+"""
+Loss functions for EGA-Ploc protein subcellular localization / EGA-Ploc蛋白质亚细胞定位的损失函数
+This module contains various loss functions for multi-label classification and contrastive learning.
+此模块包含用于多标签分类和对比学习的各种损失函数。
+"""
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
