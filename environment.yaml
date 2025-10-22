@@ -1,4 +1,4 @@
-name: Vislocas
+name: EGAPloc
 channels:
   - iopath
   - fvcore
@@ -236,4 +236,3 @@ dependencies:
     - yapf==0.43.0
     - yarl==1.9.10
     - zipp==3.11.0
-prefix: /mnt/T19/anaconda3/envs/Vislocas

@@ -33,22 +33,26 @@
 ### 本地安装
 
 1. **克隆仓库**
+   
    ```bash
    git clone https://github.com/gd-hxy/EGA-Ploc.git
    cd EGA-Ploc
    ```
 
 2. **设置环境**
+   
    ```bash
    conda env create -f environment.yaml
-   conda activate Vislocas
+   conda activate EGAPloc
    ```
 
 3. **下载数据集**
+   
    - **Vislocas 数据集**: [Zenodo](https://doi.org/10.5281/zenodo.10632698)
    - **HPA18 数据集**: [GraphLoc](http://www.csbio.sjtu.edu.cn/bioinf/GraphLoc)
 
 4. **下载预训练模型** (可选)
+   
    - **Vislocas 模型**: [下载链接](https://jxstnueducn-my.sharepoint.com/:f:/g/personal/wanboyang_jxstnu_edu_cn/EpEDB3GcXMZFvRz9lQaBHswBYTEWUDF6ThPBHWqEPB-eUQ?e=jsSoY0)
    - **HPA18 模型**: 同上仓库
 
@@ -147,32 +151,38 @@ python -m torch.distributed.launch --nproc_per_node=8 tools/train.py
 #### 训练过程
 
 1. **数据加载**: 
+   
    - 从 CSV 标注文件加载训练和验证数据集
    - 支持 Vislocas 和 HPA18 数据集
    - 对训练集应用数据增强
 
 2. **模型初始化**:
+   
    - 构建 EGA-Ploc 分类器模型
    - 支持分布式数据并行（DDP）训练
    - 将批归一化转换为同步批归一化以支持多GPU训练
 
 3. **优化**:
+   
    - **优化器**: AdamW，权重衰减可配置（0.05、0.01、0.005 或 0）
    - **调度器**: 预热余弦退火调度器
    - **梯度缩放**: 自动混合精度（AMP）以提高内存效率
 
 4. **损失函数**:
+   
    - **多标签平衡交叉熵**: 处理蛋白质定位中的类别不平衡
    - **带Logits的BCE**: 标准二元交叉熵选项
    - **多标签分类交叉熵**: 替代损失函数
 
 5. **训练循环**:
+   
    - 遍历训练数据，定期验证
    - 基于验证损失保存最佳模型检查点
    - 支持中断训练恢复检查点
    - 记录训练进度和指标
 
 6. **评估**:
+   
    - 每5步定期验证
    - 全面的评估指标，包括精确率、召回率、F1分数
    - 多GPU同步评估
@@ -185,6 +195,7 @@ python -m torch.distributed.launch --nproc_per_node=8 tools/train.py
 #### 模型检查点
 
 训练自动保存：
+
 - **最新模型**: 用于恢复中断的训练
 - **最佳模型**: 基于验证性能
 - **训练日志**: TensorBoard 兼容的日志，用于监控
@@ -202,6 +213,7 @@ python -m torch.distributed.launch --nproc_per_node=8 tools/train.py
 ## 📄 许可证
 
 ### 学术使用
+
 本项目根据**学术自由许可证 v3.0** 发布，用于非商业研究和教育目的。您可以：
 
 - ✅ 为学术研究使用、复制和修改
@@ -209,6 +221,7 @@ python -m torch.distributed.launch --nproc_per_node=8 tools/train.py
 - ✅ 为非商业应用程序在此工作基础上构建
 
 ### 商业使用
+
 对于商业许可，请联系作者讨论条款和条件。商业使用需要明确许可，并可能需要支付许可费。
 
 ## 🤝 引用

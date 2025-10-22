@@ -33,22 +33,26 @@ Experience EGA-Ploc instantly through our Hugging Face Space:
 ### Local Installation
 
 1. **Clone the repository**
+   
    ```bash
    git clone https://github.com/gd-hxy/EGA-Ploc.git
    cd EGA-Ploc
    ```
 
 2. **Set up environment**
+   
    ```bash
    conda env create -f environment.yaml
-   conda activate Vislocas
+   conda activate EGAPloc
    ```
 
 3. **Download datasets**
+   
    - **Vislocas Dataset**: [Zenodo](https://doi.org/10.5281/zenodo.10632698)
    - **HPA18 Dataset**: [GraphLoc](http://www.csbio.sjtu.edu.cn/bioinf/GraphLoc)
 
 4. **Download pre-trained models** (optional)
+   
    - **Vislocas Model**: [Download Link](https://jxstnueducn-my.sharepoint.com/:f:/g/personal/wanboyang_jxstnu_edu_cn/EpEDB3GcXMZFvRz9lQaBHswBYTEWUDF6ThPBHWqEPB-eUQ?e=jsSoY0)
    - **HPA18 Model**: Same repository as above
 
@@ -147,32 +151,38 @@ The training process is configured through `utils/config_defaults.py` with the f
 #### Training Process
 
 1. **Data Loading**: 
+   
    - Loads training and validation datasets from CSV annotation files
    - Supports both Vislocas and HPA18 datasets
    - Applies data augmentation for training set
 
 2. **Model Initialization**:
+   
    - Constructs EGA-Ploc classifier model
    - Supports distributed data parallel (DDP) training
    - Converts batch normalization to synchronized batch norm for multi-GPU training
 
 3. **Optimization**:
+   
    - **Optimizer**: AdamW with configurable weight decay (0.05, 0.01, 0.005, or 0)
    - **Scheduler**: Warmup cosine annealing scheduler
    - **Gradient Scaling**: Automatic mixed precision (AMP) for memory efficiency
 
 4. **Loss Functions**:
+   
    - **Multi-label Balanced Cross Entropy**: Handles class imbalance in protein localization
    - **BCE with Logits**: Standard binary cross-entropy option
    - **Multi-label Categorical Cross Entropy**: Alternative loss function
 
 5. **Training Loop**:
+   
    - Iterates through training data with periodic validation
    - Saves best model checkpoints based on validation loss
    - Supports checkpoint resumption for interrupted training
    - Logs training progress and metrics
 
 6. **Evaluation**:
+   
    - Periodic validation every 5 steps
    - Comprehensive evaluation metrics including precision, recall, F1-score
    - Multi-GPU synchronized evaluation
@@ -185,6 +195,7 @@ The training process is configured through `utils/config_defaults.py` with the f
 #### Model Checkpoints
 
 Training automatically saves:
+
 - **Latest Model**: For resuming interrupted training
 - **Best Model**: Based on validation performance
 - **Training Logs**: TensorBoard compatible logs for monitoring
@@ -202,6 +213,7 @@ To start training, ensure you have downloaded the required datasets and configur
 ## 📄 License
 
 ### Academic Use
+
 This project is released under the **Academic Free License v3.0** for non-commercial research and educational purposes. You are free to:
 
 - ✅ Use, copy, and modify for academic research
@@ -209,6 +221,7 @@ This project is released under the **Academic Free License v3.0** for non-commer
 - ✅ Build upon the work for non-commercial applications
 
 ### Commercial Use
+
 For commercial licensing, please contact the authors to discuss terms and conditions. Commercial use requires explicit permission and may be subject to licensing fees.
 
 ## 🤝 Citation
