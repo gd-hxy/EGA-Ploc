@@ -14,6 +14,21 @@ import torch.distributed as dist
 class SoftTargetCrossEntropy(nn.Module):
     """
     Cross entropy loss with soft target.
+    Soft target cross entropy loss for multi-class classification with label smoothing.
+    
+    Formula:
+    \[
+    \mathcal{L} = -\sum_{i=1}^{C} y_i \log(\text{softmax}(x)_i)
+    \]
+    where \( C \) is the number of classes, \( y_i \) is the soft target probability.
+    
+    软目标交叉熵损失，用于带标签平滑的多分类任务。
+    
+    公式：
+    \[
+    \mathcal{L} = -\sum_{i=1}^{C} y_i \log(\text{softmax}(x)_i)
+    \]
+    其中 \( C \) 是类别数，\( y_i \) 是软目标概率。
     """
 
     def __init__(self, reduction="mean"):
@@ -210,6 +225,24 @@ class InfoNceLoss(nn.Module):
 
 
 class LogitsFocalLoss(nn.Module):
+    """
+    Focal loss for multi-class classification.
+    Addresses class imbalance by down-weighting easy examples.
+    
+    Formula:
+    \[
+    \text{FL}(p_t) = -\alpha_t (1 - p_t)^\gamma \log(p_t)
+    \]
+    where \( p_t = \exp(-\text{CE}(x, y)) \) is the predicted probability.
+    
+    多分类任务的Focal Loss，通过降低简单样本的权重来解决类别不平衡问题。
+    
+    公式：
+    \[
+    \text{FL}(p_t) = -\alpha_t (1 - p_t)^\gamma \log(p_t)
+    \]
+    其中 \( p_t = \exp(-\text{CE}(x, y)) \) 是预测概率。
+    """
     def __init__(self, weight=None, reduction='mean', gamma=2, eps=1e-7):
         super(LogitsFocalLoss, self).__init__()
         self.reduction = reduction
@@ -229,8 +262,25 @@ class LogitsFocalLoss(nn.Module):
         return loss
 
 
-#alpha_balanced
 class FocalLoss(nn.Module):
+    """
+    Binary focal loss for multi-label classification with alpha balancing.
+    Alpha-balanced focal loss for handling class imbalance.
+    
+    Formula:
+    \[
+    \text{FL} = -\alpha (1 - p_t)^\gamma y \log(p_t) - (1 - \alpha) p_t^\gamma (1 - y) \log(1 - p_t)
+    \]
+    where \( p_t = \sigma(x) \) is the sigmoid probability.
+    
+    带alpha平衡的多标签分类二元Focal Loss，用于处理类别不平衡。
+    
+    公式：
+    \[
+    \text{FL} = -\alpha (1 - p_t)^\gamma y \log(p_t) - (1 - \alpha) p_t^\gamma (1 - y) \log(1 - p_t)
+    \]
+    其中 \( p_t = \sigma(x) \) 是sigmoid概率。
+    """
     def __init__(self, reduction='mean', alpha=0.25, gamma=2):
         super(FocalLoss, self).__init__()
         self.reduction = reduction
@@ -249,6 +299,24 @@ class FocalLoss(nn.Module):
 
 
 class MultilabelCategoricalCrossEntropy(nn.Module):
+    """
+    Multilabel categorical cross entropy loss.
+    Extension of cross entropy to multi-label classification with sigmoid activation.
+    
+    Formula:
+    \[
+    \mathcal{L} = \log\left(\sum_{i \in \text{neg}} \exp(x_i)\right) + \log\left(\sum_{i \in \text{pos}} \exp(-x_i)\right)
+    \]
+    where neg and pos are negative and positive classes respectively.
+    
+    多标签分类交叉熵损失，将交叉熵扩展到多标签分类任务。
+    
+    公式：
+    \[
+    \mathcal{L} = \log\left(\sum_{i \in \text{neg}} \exp(x_i)\right) + \log\left(\sum_{i \in \text{pos}} \exp(-x_i)\right)
+    \]
+    其中neg和pos分别表示负类和正类。
+    """
     def __init__(self, reduction='mean', weight=None, pos_weight=None, LARGE_NUM=1e10):
         super(MultilabelCategoricalCrossEntropy, self).__init__()
         self.reduction = reduction
@@ -294,6 +362,30 @@ class MultilabelCategoricalCrossEntropy(nn.Module):
 
 
 class MultilabelBalancedCrossEntropy(nn.Module):
+    """
+    Balanced multilabel cross entropy loss with class weighting.
+    Handles class imbalance by weighting based on class frequencies.
+    
+    Formula:
+    \[
+    \mathcal{L} = \log\sum\exp(\text{pred\_neg}) + \log\sum\exp(\text{pred\_pos})
+    \]
+    with class balancing weight:
+    \[
+    w = \frac{\text{total\_nums}}{\sum(\text{target} \times \text{nums})}
+    \]
+    
+    带类别加权的平衡多标签交叉熵损失，通过类别频率进行加权处理类别不平衡。
+    
+    公式：
+    \[
+    \mathcal{L} = \log\sum\exp(\text{pred\_neg}) + \log\sum\exp(\text{pred\_pos})
+    \]
+    带类别平衡权重：
+    \[
+    w = \frac{\text{total\_nums}}{\sum(\text{target} \times \text{nums})}
+    \]
+    """
     def __init__(self, reduction='mean', nums=None, total_nums=0, LARGE_NUM=1e12):
         super(MultilabelBalancedCrossEntropy, self).__init__()
         self.reduction = reduction
