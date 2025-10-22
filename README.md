@@ -5,6 +5,10 @@
 [![PyTorch](https://img.shields.io/badge/PyTorch-1.11.0-red.svg)](https://pytorch.org/)
 [![Paper](https://img.shields.io/badge/Paper-IEEE%20JBHI-green.svg)](https://ieeexplore.ieee.org/document/11175487)
 
+> **Language**: [English](README.md) | [中文](README_CN.md)
+
+---
+
 ## 📖 Overview
 
 **EGA-Ploc** is an advanced deep learning framework for multi-label protein subcellular localization prediction from immunohistochemistry (IHC) images. This repository contains the official implementation of our paper:
